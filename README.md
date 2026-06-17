@@ -3,7 +3,8 @@
 Sistem web internal untuk generate invoice digital, dengan verifikasi QR publik.
 Dibangun dengan PHP native + MySQL (XAMPP), frontend HTML/CSS/JS murni.
 
-📄 Detail lengkap ada di [`plan.md`](./plan.md).
+📄 Detail lengkap ada di [`plan.md`](./plan.md).  
+🔗 Repo: https://github.com/IchsanUI/invoce_genarate
 
 ## Status Development
 

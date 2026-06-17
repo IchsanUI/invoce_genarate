@@ -216,14 +216,21 @@ Agar invoice "susah diduplikasi" dan datanya terjamin, sistem tidak hanya mengan
 ## 9. Checklist Development
 
 ### FASE 0 — Persiapan Environment
-- [ ] Install/update XAMPP (PHP 8.x, MariaDB terbaru, Apache + mod_ssl)
-- [ ] Aktifkan `mod_ssl` & `mod_rewrite`
-- [ ] Generate self-signed certificate untuk HTTPS lokal
-- [ ] Taruh folder project di `htdocs` (misal `htdocs/invoice-system`), akses lewat `http://localhost:8080/invoice-system/` (port disesuaikan dengan port Apache XAMPP yang dipakai) — tanpa setup virtual host
-- [ ] Cek port SSL Apache di `httpd-ssl.conf` (baris `Listen`, default `443` tapi bisa custom misal `4433` kalau port HTTP juga sudah diubah ke `8080`), lalu aktifkan HTTPS lewat port itu (akses jadi `https://localhost:<port_ssl>/invoice-system/`)
-- [ ] Buat struktur folder project sesuai bagian 3
-- [ ] Inisialisasi git repository
-- [ ] Buat `.gitignore` (config sensitif, folder uploads, vendor)
+- [x] Install/update XAMPP (PHP 8.x, MariaDB terbaru, Apache + mod_ssl)
+- [x] Aktifkan `mod_ssl` & `mod_rewrite`
+- [x] Generate self-signed certificate untuk HTTPS lokal
+- [x] Taruh folder project di `htdocs` (folder `invoce_genarate`), akses lewat `http://localhost/invoce_genarate/`
+- [x] Cek port SSL Apache di `httpd-ssl.conf` (baris `Listen`, default `443` tapi bisa custom misal `4433` kalau port HTTP juga sudah diubah ke `8080`), lalu aktifkan HTTPS lewat port itu (akses jadi `https://localhost:<port_ssl>/invoce_genarate/`)
+- [x] Buat struktur folder project sesuai bagian 3
+- [x] Inisialisasi git repository & push ke GitHub (`git@github.com:IchsanUI/invoce_genarate.git`)
+- [x] Buat `.gitignore` (config sensitif, folder uploads, vendor)
+
+**Catatan Fase 0:**
+- Repo git ada di folder project sendiri (`.git` di root `invoce_genarate/`), bukan nested di parent
+- Folder `config/`, `includes/`, `sql/` dilindungi `.htaccess` agar tidak bisa diakses browser
+- Folder `public/assets/uploads/` tidak bisa eksekusi PHP (aman dari upload shell)
+- PHP 8.0.30 terdeteksi di CLI
+- Library `qrcode.js` (untuk QR code) belum di-download — akan dipasang di Fase 8
 
 ### FASE 1 — Database
 - [ ] Buat database `invoice_system`
