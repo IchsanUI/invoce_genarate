@@ -233,11 +233,21 @@ Agar invoice "susah diduplikasi" dan datanya terjamin, sistem tidak hanya mengan
 - Library `qrcode.js` (untuk QR code) belum di-download — akan dipasang di Fase 8
 
 ### FASE 1 — Database
-- [ ] Buat database `invoice_system`
-- [ ] Buat tabel `users`, `company_settings`, `invoices`, `invoice_items`, `activity_logs`, `verification_logs`
-- [ ] Tambahkan index pada `invoice_number`, `username`, dan semua foreign key
-- [ ] Insert data awal: 1 user super admin (password sudah di-hash), 1 baris default `company_settings`
-- [ ] Export `schema.sql` sebagai dokumentasi/backup
+- [x] Buat database `invoice_system`
+- [x] Buat tabel `users`, `company_settings`, `invoices`, `invoice_items`, `activity_logs`, `verification_logs`
+- [x] Tambahkan index pada `invoice_number`, `username`, dan semua foreign key
+- [x] Insert data awal: 1 user super admin (password sudah di-hash), 1 baris default `company_settings`
+- [x] Export `schema.sql` sebagai dokumentasi/backup
+
+**Catatan Fase 1:**
+- `sql/schema.sql` — CREATE DATABASE + 6 tabel + index + foreign keys
+- `sql/seed.sql` — INSERT default super admin & company_settings
+- `install.php` — CLI/browser installer yang jalanin schema.sql + seed.sql
+- Login default: username `superadmin`, password `superadmin123` (WAJIB ganti setelah login pertama!)
+- `data_snapshot` di tabel invoices disimpan sebagai JSON (MariaDB akan auto-cast ke LONGTEXT — tetap valid untuk `JSON_VALID()`)
+- `company_settings.id = 1` (single-row pattern, di-update via `id` tetap)
+- Semua FK pakai `ON DELETE RESTRICT` kecuali `invoice_items → invoices` yang `ON DELETE CASCADE`
+- `install.php` HANYA untuk setup sekali — hapus setelah berhasil
 
 ### FASE 2 — Core Backend
 - [ ] `config.php`: kredensial DB, secret key HMAC, base URL (letakkan di luar document root bila memungkinkan)

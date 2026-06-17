@@ -11,7 +11,7 @@ Dibangun dengan PHP native + MySQL (XAMPP), frontend HTML/CSS/JS murni.
 | Fase | Tahap | Status |
 |------|-------|--------|
 | 0 | Persiapan Environment | ✅ Selesai |
-| 1 | Database | ⏳ Belum |
+| 1 | Database | ✅ Selesai |
 | 2 | Core Backend | ⏳ Belum |
 | 3 | Autentikasi & Role | ⏳ Belum |
 | 4 | Fitur Super Admin | ⏳ Belum |

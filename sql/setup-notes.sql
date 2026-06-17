@@ -1,0 +1,13 @@
+-- ============================================================
+-- Invoice Generator — Quick Setup Checklist (Fase 0 & 1)
+-- ============================================================
+
+-- [x] Phase 0: Project structure, .htaccess, PHP libraries
+-- [x] Phase 1: Database schema + seed data installed
+--
+-- Steps taken:
+-- 1. mysql -u root -p < sql/schema.sql
+-- 2. mysql -u root -p < sql/seed.sql
+-- OR (easier): php install.php --fresh
+--
+-- Next: Fase 2 — Core Backend (auth.php already prepared in includes/)
