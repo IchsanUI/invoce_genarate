@@ -1,0 +1,10 @@
+# /config contains secrets (DB credentials, HMAC secret_key).
+# Block ALL direct access, including any future .php file in this folder.
+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

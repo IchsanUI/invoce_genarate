@@ -1,0 +1,37 @@
+# Block direct access to sensitive / non-public folders.
+# Document root is the project root (htdocs/invoce_genarate/),
+# so the public/ subfolder and config/ + includes/ must never be served
+# directly to the browser.
+
+# RewriteEngine will be enabled when mod_rewrite is loaded.
+# The rules below DO NOT depend on RewriteEngine — they are <Directory>-style
+# deny rules that work as long as AllowOverride is enabled in httpd.conf.
+
+# --- /config : NEVER public (contains secret_key & DB credentials) ---
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(.*)\.(php|inc|conf|cfg|ini|sql|log)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+# --- Disable directory listing for the entire project ---
+Options -Indexes
+
+# --- Force HTTPS (active once SSL is configured in Fase 0/9) ---
+# Uncomment after SSL is set up:
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- Security headers (will be tightened in Fase 9) ---
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    # HSTS: uncomment once HTTPS is active
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>

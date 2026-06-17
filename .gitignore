@@ -1,0 +1,32 @@
+# Sensitive config (contains secret keys & DB credentials)
+# Comment this out if you want to track a template, but ensure real
+# credentials are NOT committed.
+/config/config.php
+
+# Uploaded files (user content — should not be in version control)
+/public/assets/uploads/*
+!/public/assets/uploads/.gitkeep
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# PHP runtime
+*.tmp
+.session/
+
+# Env / local overrides
+.env
+.env.local

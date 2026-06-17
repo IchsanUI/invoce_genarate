@@ -1,0 +1,23 @@
+# /public is a STATIC ASSETS folder (CSS, JS, images, uploads).
+# PHP files do NOT live here — keep this folder non-executable.
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php3|php4|php5|phar)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+# Long cache for versioned assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+</IfModule>
