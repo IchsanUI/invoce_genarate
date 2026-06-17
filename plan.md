@@ -250,11 +250,25 @@ Agar invoice "susah diduplikasi" dan datanya terjamin, sistem tidak hanya mengan
 - `install.php` HANYA untuk setup sekali — hapus setelah berhasil
 
 ### FASE 2 — Core Backend
-- [ ] `config.php`: kredensial DB, secret key HMAC, base URL (letakkan di luar document root bila memungkinkan)
-- [ ] `database.php`: koneksi PDO + helper query
-- [ ] `functions.php`: helper umum (format rupiah, sanitasi input, dsb)
-- [ ] `auth.php`: session handling + middleware cek role
-- [ ] Setting session aman (`HttpOnly`, `Secure`, `SameSite=Strict`, regenerate ID saat login)
+- [x] `config.php`: kredensial DB, secret key HMAC, base URL (letakkan di luar document root bila memungkinkan)
+- [x] `database.php`: koneksi PDO + helper query
+- [x] `functions.php`: helper umum (format rupiah, sanitasi input, dsb)
+- [x] `auth.php`: session handling + middleware cek role
+- [x] Setting session aman (`HttpOnly`, `Secure`, `SameSite=Strict`, regenerate ID saat login)
+- [x] `signature.php`: HMAC-SHA256 sign/verify + verify URL builder
+- [x] `invoice-number.php`: generator nomor invoice `INV/ASSIG-YYYYMMDD-NNNN`
+- [x] `tests/backend-test.php`: 35-test smoke test (semua PASS)
+
+**Catatan Fase 2:**
+- `config.php` dilindungi `.htaccess` (tidak bisa diakses browser)
+- `db()` singleton — koneksi PDO dipakai ulang per request
+- PDO: `ERRMODE_EXCEPTION`, `EMULATE_PREPARES = false`, `FETCH_ASSOC`
+- Session: cookie `HttpOnly`, `SameSite=Strict` (`Secure=false` di dev, true di Fase 9 setelah HTTPS)
+- CSRF: 64-char hex via `random_bytes(32)`, validated dengan `hash_equals()` (timing-safe)
+- Invoice number: pattern `INV/{COMPANY_CODE}-{YYYYMMDD}-{NNNN}`
+  - `generate_invoice_number()` → compute candidate (read-only, may collide on race)
+  - `reserve_invoice_number($user_id)` → atomic INSERT placeholder + retry on UNIQUE collision
+- `tests/backend-test.php` bisa dijalankan via `php tests/backend-test.php` (35/35 PASS)
 
 ### FASE 3 — Autentikasi & Role
 - [ ] Halaman login (validasi server-side)
