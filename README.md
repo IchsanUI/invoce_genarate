@@ -13,7 +13,7 @@ Dibangun dengan PHP native + MySQL (XAMPP), frontend HTML/CSS/JS murni.
 | 0 | Persiapan Environment | ✅ Selesai |
 | 1 | Database | ✅ Selesai |
 | 2 | Core Backend | ✅ Selesai |
-| 3 | Autentikasi & Role | ⏳ Belum |
+| 3 | Autentikasi & Role | ✅ Selesai |
 | 4 | Fitur Super Admin | ⏳ Belum |
 | 5 | Fitur Admin (Generate Invoice) | ⏳ Belum |
 | 6 | Template Invoice & Cetak | ⏳ Belum |

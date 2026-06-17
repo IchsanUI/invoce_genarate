@@ -1,0 +1,13 @@
+# /superadmin — protected directory for super admin only.
+# require_role('superadmin') in each page handles auth, but this
+# adds a defense-in-depth layer.
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(ini|sql|log|md|json|yaml|yml|env)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

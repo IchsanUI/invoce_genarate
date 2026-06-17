@@ -271,12 +271,26 @@ Agar invoice "susah diduplikasi" dan datanya terjamin, sistem tidak hanya mengan
 - `tests/backend-test.php` bisa dijalankan via `php tests/backend-test.php` (35/35 PASS)
 
 ### FASE 3 — Autentikasi & Role
-- [ ] Halaman login (validasi server-side)
-- [ ] Hash password dengan `password_hash()`
-- [ ] Rate-limit / lockout sementara setelah gagal login berulang
-- [ ] Middleware cek role di setiap halaman terlindungi (admin vs superadmin)
-- [ ] Halaman logout (destroy session)
-- [ ] CSRF token di semua form
+- [x] Halaman login (validasi server-side)
+- [x] Hash password dengan `password_hash()`
+- [x] Rate-limit / lockout sementara setelah gagal login berulang
+- [x] Middleware cek role di setiap halaman terlindungi (admin vs superadmin)
+- [x] Halaman logout (destroy session)
+- [x] CSRF token di semua form
+
+**Catatan Fase 3:**
+- `index.php` — halaman login (GET = form, POST = proses)
+- `logout.php` — destroy session + redirect ke login
+- `dashboard.php` — landing page untuk admin
+- `superadmin/dashboard.php` — landing page untuk super admin (w/ stat cards)
+- `auth.php` augmented dengan: `attempt_login()`, `get_failed_attempts()`, `is_locked_out()`, `lockout_seconds_remaining()`, `log_login_success()`, `log_login_failure()`
+- Rate-limit: 5 failed attempts dalam 15 menit → lockout 15 menit (configurable via `MAX_LOGIN_ATTEMPTS` & `LOCKOUT_MINUTES`)
+- Login success: `session_regenerate_id()` + `set_login_session()` + update `last_login`
+- Login failure: log ke `activity_logs` dengan action `login_failed` (no password logged)
+- Timing attack prevention: `password_verify()` selalu dijalankan (dengan dummy hash) walau user tidak ditemukan
+- Redirect logic: admin → `dashboard.php`, super admin → `superadmin/dashboard.php`, anon → `index.php`
+- Cookie: `HttpOnly`, `SameSite=Strict`, `Secure=false` (akan jadi `true` di Fase 9)
+- CSS monochrome (hitam/putih/abu-abu) + Plus Jakarta Sans via Google Fonts CDN
 
 ### FASE 4 — Fitur Super Admin
 - [ ] Dashboard ringkasan (jumlah invoice, jumlah admin aktif, dll)
